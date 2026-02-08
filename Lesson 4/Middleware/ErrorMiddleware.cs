@@ -3,11 +3,8 @@ using Microsoft.AspNetCore.Diagnostics;
 
 public class ErrorMiddleware
 {
-    // Логгер внедряем через конструктор
     private readonly ILogger<ErrorMiddleware> _logger;
 
-    // RequestDelegate next здесь формально нужен для сигнатуры, 
-    // но в терминальном middleware ошибки он редко вызывается.
     public ErrorMiddleware(RequestDelegate next, ILogger<ErrorMiddleware> logger)
     {
         _logger = logger;
@@ -17,7 +14,6 @@ public class ErrorMiddleware
     {
         var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
 
-        // Само исключение
         var error = exceptionHandlerPathFeature?.Error;
 
         var path = exceptionHandlerPathFeature?.Path;

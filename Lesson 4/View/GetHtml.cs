@@ -44,6 +44,7 @@ namespace Lesson_4.View
             sb.Append("<thead><tr>");
             foreach (var prop in properties)
             {
+                if (prop.Name == "Id") continue;
                 sb.Append($"<th>{prop.Name}</th>");
             }
             if (actionsBuilder != null)
@@ -59,6 +60,7 @@ namespace Lesson_4.View
                 sb.Append("<tr>");
                 foreach (var prop in properties)
                 {
+                    if (prop.Name == "Id") continue;
                     var value = prop.GetValue(item);
                     sb.Append($"<td>{value}</td>");
                 }

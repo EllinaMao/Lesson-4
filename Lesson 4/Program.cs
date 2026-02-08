@@ -3,15 +3,12 @@ using Microsoft.AspNetCore.Server.IISIntegration;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
+
 var app = builder.Build();
 
-if(app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-}
-else { 
-    app.UseExceptionHandler("/error");
-}
+
+app.UseExceptionHandler("/error");
+
 app.Map("/error", branch =>
 {
     branch.UseMiddleware<ErrorMiddleware>();
@@ -26,7 +23,7 @@ app.Map("/edit", appBuild =>
     appBuild.UseMiddleware<EditMiddleware>();
 });
 
-app.Map("/delete",  appBuild =>
+app.Map("/delete", appBuild =>
 {
     appBuild.UseMiddleware<DeleteMiddleware>();
 });
